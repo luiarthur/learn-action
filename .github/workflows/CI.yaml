@@ -40,13 +40,13 @@ jobs:
       - name: Get python package metadata
         id: pkg_info
         run: | 
-          echo "version=$(cat version.txt)" >> GITHUB_OUTPUT
+          echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Get git info
         id: git_info
         run: |
           git fetch --tags
-          echo "tag=$(git tag | sort -V | tail -n 1)" >> GITHUB_OUTPUT
+          echo "tag=$(git tag | sort -V | tail -n 1)" >> "$GITHUB_OUTPUT"
 
       - name: Configure Git
         run: |
