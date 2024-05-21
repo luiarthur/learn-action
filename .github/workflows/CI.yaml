@@ -26,6 +26,7 @@ jobs:
           fi
 
   CreateTag:
+    needs: RunTest
     runs-on: ubuntu-latest
     defaults:
       run:
