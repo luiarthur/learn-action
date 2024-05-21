@@ -26,6 +26,9 @@ jobs:
           fi
 
   CreateTag:
+    permissions:
+      contents: write
+
     needs: RunTest
     runs-on: ubuntu-latest
     defaults:
