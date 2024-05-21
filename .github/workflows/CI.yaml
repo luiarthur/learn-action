@@ -7,9 +7,8 @@ jobs:
       run:
         shell: bash
 
-    # Don't run when merging. The email address will contain noreply in that
-    # case.
-    if: ${{ !contains(github.event.head_commit.committer.email, 'noreply') }}
+    # Don't run when merging. The username will be 'web-flow' in that case.
+    if: ${{ !contains(github.event.head_commit.committer.username, 'web-flow') }}
 
     steps:
       - uses: actions/checkout@v3
@@ -47,6 +46,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Print info
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Get python package metadata
         id: pkg_info
