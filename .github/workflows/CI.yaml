@@ -40,7 +40,7 @@ jobs:
       - name: Get python package metadata
         id: pkg_info
         run: | 
-          echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
+          echo "version=v$(cat version.txt)" >> "$GITHUB_OUTPUT"
           cat version.txt
 
       - name: Get git info
@@ -59,6 +59,6 @@ jobs:
         env: 
           pkg_version: ${{ steps.pkg_info.outputs.version }}
         run: |
-          git tag $pkg_version
+          git tag "v$pkg_version"
           git push --tags
 
