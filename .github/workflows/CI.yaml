@@ -56,7 +56,6 @@ jobs:
       - name: Make tag if updated
         if: ${{ (steps.pkg_info.version == steps.git_info.tag) && github.ref == 'refs/heads/main' }}
         run: |
-          git tag ${{ steps.get_pkg_info.version }}
+          git tag ${{ steps.pkg_info.version }}
           git push --tags
-
 
