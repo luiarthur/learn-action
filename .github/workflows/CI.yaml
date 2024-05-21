@@ -6,8 +6,10 @@ jobs:
     defaults:
       run:
         shell: bash
+
     # Don't run when merging.
     if: ${{ !github.event.pull_request.merged }}
+
     steps:
       - uses: actions/checkout@v2
       - name: Run script
@@ -22,3 +24,38 @@ jobs:
             echo "Script returned: $answer"
             exit 1
           fi
+
+  CreateTag:
+    if: ${{ needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped' }}
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get python package metadata
+        id: pkg_info
+        run: | 
+          echo "version=$(cat version.txt)" >> GITHUB_OUTPUT
+
+      - name: Get git info
+        id: git_info
+        run: |
+          git fetch --tags
+          echo "tag=$(git tag | sort -V | tail -n 1)" >> GITHUB_OUTPUT
+          echo "branch=$(git branch --show-current)" >> GITHUB_OUTPUT
+
+      - name: Configure Git
+          git config user.name "github-actions"
+          git config user.email "github-actions@noreply.github.com"
+
+      - name: Make tag if updated
+        if: ${{ (steps.pkg_info.version == steps.git_info.tag) && steps.git_info.branch == "main" }}
+        run: |
+          git tag ${{ steps.get_pkg_info.version }}
+          git push --tags
+
+
