@@ -40,6 +40,7 @@ jobs:
         shell: bash
 
     if: |
+      always() &&
       github.ref == 'refs/heads/main' &&
       (needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped')
 
