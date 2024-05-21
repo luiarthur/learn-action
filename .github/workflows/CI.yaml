@@ -8,7 +8,9 @@ jobs:
         shell: bash
 
     # Don't run when merging. The username will be 'web-flow' in that case.
-    if: ${{ !contains(github.event.head_commit.committer.username, 'web-flow') }}
+    if: |
+      github.ref != 'refs/heads/main' ||
+      !contains(github.event.head_commit.committer.username, 'web-flow')
 
     steps:
       - uses: actions/checkout@v3
