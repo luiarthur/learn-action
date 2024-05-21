@@ -1,0 +1,9 @@
+on: push
+
+jobs:
+  defaults:
+    shell: bash
+  RunTest:
+    runs-on: ubuntu-latest
+
+
