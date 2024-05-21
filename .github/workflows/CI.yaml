@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Print info
-        run: echo "$GITHUB_REF"
-        run: echo "$GITHUB_HEAD_REF"
+        run: |
+          echo "$GITHUB_REF | $GITHUB_HEAD_REF"
       - name: Run script
         id: run_script
         run: |
