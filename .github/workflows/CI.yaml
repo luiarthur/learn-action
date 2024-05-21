@@ -49,6 +49,7 @@ jobs:
           echo "branch=$(git branch --show-current)" >> GITHUB_OUTPUT
 
       - name: Configure Git
+        run: |
           git config user.name "github-actions"
           git config user.email "github-actions@noreply.github.com"
 
