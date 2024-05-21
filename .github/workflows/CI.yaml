@@ -2,6 +2,7 @@ on: push
 
 jobs:
   RunTest:
+    runs-on: ubuntu-latest
     defaults:
       shell: bash
     # Don't run when merging.
