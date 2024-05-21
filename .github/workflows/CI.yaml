@@ -32,7 +32,9 @@ jobs:
       run:
         shell: bash
 
-    if: ${{ needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped' }}
+    if: |
+      github.ref == 'refs/heads/main' &&
+      (needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped')
 
     steps:
       - uses: actions/checkout@v3
@@ -55,7 +57,7 @@ jobs:
           git config user.email "github-actions@noreply.github.com"
 
       - name: Make tag if updated
-        if: ${{ (steps.pkg_info.outputs.version == steps.git_info.outputs.tag) && github.ref == 'refs/heads/main' }}
+        if: ${{ (steps.pkg_info.outputs.version != steps.git_info.outputs.tag) }}
         env: 
           pkg_version: ${{ steps.pkg_info.outputs.version }}
         run: |
