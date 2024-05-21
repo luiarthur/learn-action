@@ -7,8 +7,9 @@ jobs:
       run:
         shell: bash
 
-    # Don't run when merging.
-    if: ${{ !contains(github.event.head_commit.message, 'Merge pull request') }}
+    # Don't run when merging. The email address will contain noreply in that
+    # case.
+    if: ${{ !contains(github.event.head_commit.committer.email, 'noreply') }}
 
     steps:
       - uses: actions/checkout@v3
