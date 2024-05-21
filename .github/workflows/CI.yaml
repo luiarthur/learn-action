@@ -64,6 +64,6 @@ jobs:
         env: 
           pkg_version: ${{ steps.pkg_info.outputs.version }}
         run: |
-          git tag "v$pkg_version"
+          git tag "$pkg_version"
           git push --tags
 
