@@ -46,7 +46,6 @@ jobs:
         run: |
           git fetch --tags
           echo "tag=$(git tag | sort -V | tail -n 1)" >> GITHUB_OUTPUT
-          echo "branch=$(git branch --show-current)" >> GITHUB_OUTPUT
 
       - name: Configure Git
         run: |
@@ -54,7 +53,7 @@ jobs:
           git config user.email "github-actions@noreply.github.com"
 
       - name: Make tag if updated
-        if: ${{ (steps.pkg_info.version == steps.git_info.tag) && steps.git_info.branch == "main" }}
+        if: ${{ (steps.pkg_info.version == steps.git_info.tag) && github.ref == 'refs/heads/main' }}
         run: |
           git tag ${{ steps.get_pkg_info.version }}
           git push --tags
