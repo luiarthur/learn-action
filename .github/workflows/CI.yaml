@@ -13,7 +13,7 @@ jobs:
       - name: Run script
         id: run_script
         run: |
-          echo "$answer=(./answer-to-universe.sh)" >> "$GITHUB_OUTPUT"
+          echo "answer=$(./answer-to-universe.sh)" >> "$GITHUB_OUTPUT"
       - name: Verify script output
         run: |
           if [ "${{ steps.run_script.answer }}" -eq 42 ]; then
