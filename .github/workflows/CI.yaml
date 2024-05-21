@@ -54,8 +54,10 @@ jobs:
           git config user.email "github-actions@noreply.github.com"
 
       - name: Make tag if updated
+        env: 
+          pkg_version: ${{ steps.pkg_info.version }}
         if: ${{ (steps.pkg_info.version == steps.git_info.tag) && github.ref == 'refs/heads/main' }}
         run: |
-          git tag ${{ steps.pkg_info.version }}
+          git tag $pkg_version
           git push --tags
 
