@@ -1,22 +1,18 @@
 on: push
 
 jobs:
-  defaults:
-    shell: bash
-
   RunTest:
+    defaults:
+      shell: bash
     # Don't run when merging.
     if: ${{ !github.event.pull_request.merged }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run test script
+      - uses: actions/checkout@v2
+      - name: Run script
         id: run_script
         run: |
           output=$(./answer-to-universe.sh)
           echo "answer_to_universe=$output" >> "$GITHUB_OUTPUT"
-
       - name: Verify script output
         run: |
           if [ ${{ steps.run_script.answer_to_universe }} -eq 42 ]; then
