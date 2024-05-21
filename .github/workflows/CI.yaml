@@ -1,11 +1,11 @@
 on: push
 
 jobs:
-  defaults:
-    run:
-      shell: bash
   RunTest:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     # Don't run when merging.
     if: ${{ !github.event.pull_request.merged }}
     steps:
