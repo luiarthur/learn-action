@@ -26,12 +26,12 @@ jobs:
           fi
 
   CreateTag:
-    if: ${{ needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped' }}
-
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+
+    if: ${{ needs.RunTest.result == 'success' || needs.RunTest.result == 'skipped' }}
 
     steps:
       - uses: actions/checkout@v3
