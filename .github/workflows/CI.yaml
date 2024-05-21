@@ -41,6 +41,7 @@ jobs:
         id: pkg_info
         run: | 
           echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
+          cat version.txt
 
       - name: Get git info
         id: git_info
@@ -54,9 +55,9 @@ jobs:
           git config user.email "github-actions@noreply.github.com"
 
       - name: Make tag if updated
-        if: ${{ (steps.pkg_info.output.version == steps.git_info.output.tag) && github.ref == 'refs/heads/main' }}
+        if: ${{ (steps.pkg_info.outputs.version == steps.git_info.outputs.tag) && github.ref == 'refs/heads/main' }}
         env: 
-          pkg_version: ${{ steps.pkg_info.output.version }}
+          pkg_version: ${{ steps.pkg_info.outputs.version }}
         run: |
           git tag $pkg_version
           git push --tags
